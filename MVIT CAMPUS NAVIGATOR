@@ -1,0 +1,198 @@
+XML FILE:
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/dir">
+
+    <TextView
+        android:id="@+id/app_head"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="SIR MVIT CAMPUS NAVIGATOR"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/white"
+        android:textSize="23dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:textAllCaps="true"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_head"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="80dp"
+        android:background="#AA8D7C"
+        android:text="Select a source"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+    <Spinner
+        android:id="@+id/Source"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#85C8CCDA"
+        android:layout_below="@id/app_head"
+        android:layout_marginTop="130dp"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginBottom="20dp"
+        tools:ignore="DuplicateIds"
+        />
+
+
+    <TextView
+        android:id="@+id/dest_text"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Source"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="60dp"
+        android:background="#AA8D7C"
+        android:text="Select a destination"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+    <Spinner
+        android:id="@+id/destination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:background="#85C8CCDA"
+        android:layout_below="@id/dest_text"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="20dp"
+        tools:ignore="DuplicateIds" />
+
+
+    <Button
+        android:backgroundTint="#015505"
+        android:id="@+id/findroute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find Route"
+        android:layout_below="@id/destination"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginTop="55dp"/>
+
+
+
+</RelativeLayout>
+JAVA FILE:
+package com.example.mvit_campus_navigator;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+    String source,destination;
+    Spinner srcspinner,destspinner;
+    Button navigate;
+    ArrayList<String> sourcelist=new ArrayList<>();
+    ArrayList<String> destinationlist=new ArrayList<>();
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        srcspinner=(Spinner) findViewById(R.id.Source);
+        destspinner=(Spinner) findViewById(R.id.destination);
+        navigate=(Button) findViewById(R.id.findroute);
+        sourcelist.add("SIR MVIT CANTEEN");
+        sourcelist.add("SIR MVIT BOYS HOSTEL UNIT 1");
+        sourcelist.add("SIR MVIT AND KCDS LADIES HOSTEL");
+        sourcelist.add("KRISHNADEVERAYA COLLEGE OF DENTAL SCIENCES AND HOSPITAL");
+        sourcelist.add("MVIT NEW LIBRARY");
+        sourcelist.add("SIR M VISVESVERAYA INSTITUTE OF TECHNOLOGY");
+        sourcelist.add("SIR MVIT MECHANICAL BLOCK");
+        sourcelist.add("SIR MVIT DEPARTMENT OF CIVIL ENGINEERING");
+        sourcelist.add("MVIT SCIENCE BLOCK");
+        sourcelist.add("SIR MVIT LIBRARY");
+        sourcelist.add("SIR MVIT MBA & MCA BLOCK");
+        sourcelist.add("SIR MV SCHOOL OF ARCHITECTURE");
+        sourcelist.add("NEW SIR MVIT AUDITORIUM");
+        sourcelist.add("SIR MVIT AND KCDS BASKETBALL COURT");
+
+        ArrayAdapter<String> sourceadapter=new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,sourcelist);
+
+        srcspinner.setAdapter(sourceadapter);
+
+        destinationlist.add("SIR MVIT CANTEEN");
+        destinationlist.add("SIR MVIT BOYS HOSTEL UNIT 1");
+        destinationlist.add("SIR MVIT AND KCDS LADIES HOSTEL");
+        destinationlist.add("KRISHNADEVERAYA COLLEGE OF DENTAL SCIENCES AND HOSPITAL");
+        destinationlist.add("MVIT NEW LIBRARY");
+        destinationlist.add("SIR M VISVESVERAYA INSTITUTE OF TECHNOLOGY");
+        destinationlist.add("SIR MVIT MECHANICAL BLOCK");
+        destinationlist.add("SIR MVIT DEPARTMENT OF CIVIL ENGINEERING");
+        destinationlist.add("MVIT SCIENCE BLOCK");
+        destinationlist.add("SIR MVIT LIBRARY");
+        destinationlist.add("SIR MVIT MBA & MCA BLOCK");
+        destinationlist.add("SIR MV SCHOOL OF ARCHITECTURE");
+        destinationlist.add("NEW SIR MVIT AUDITORIUM");
+        destinationlist.add("SIR MVIT AND KCDS BASKETBALL COURT");
+
+        ArrayAdapter<String> destinationadapter=new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,sourcelist);
+        destspinner.setAdapter(destinationadapter);
+        srcspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                source= sourcelist.get(position);
+                Toast.makeText(MainActivity.this, ""+source+"is selected as source", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        destspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                destination=destinationlist.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        navigate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(source==destination)
+                    Toast.makeText(MainActivity.this, "Source and destination and cannot be the same", Toast.LENGTH_SHORT).show();
+                else {
+                    Uri uri=Uri.parse("https://www.google.com/maps/dir/" + source + "/" + destination);
+                    Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+                    intent.setPackage("com.google.android.apps.maps");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+        });
+
+    }
+}
